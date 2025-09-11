@@ -1,0 +1,6 @@
+body { font-family: Arial, sans-serif; background: #f4f7fa; }
+h2 { color: #2c3e50; }
+form { background: #fff; padding: 20px; margin: 50px auto; max-width: 300px; border-radius: 8px; }
+input, button { margin: 10px 0; width: 100%; padding: 8px; }
+button { background: #2980b9; color: #fff; border: none; border-radius: 6px; }
+a { color: #2980b9; text-decoration: none; }
