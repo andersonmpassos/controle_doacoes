@@ -72,6 +72,5 @@ Para contribuir, por favor faça um fork do projeto, crie uma branch para sua fu
 ## Licença
 
 Este projeto está sob licença MIT.  
-Veja o arquivo `LICENSE` para mais informações.
 
 ---
