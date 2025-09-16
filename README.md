@@ -45,7 +45,7 @@ logout.php
 
 1. Configure um servidor local (recomendado: XAMPP) e inicie Apache e MySQL.
 2. Clone o repositório ou faça o download dos arquivos.
-3. Crie um banco de dados `estacionamento` no MySQL.
+3. Crie um banco de dados `doacoes` no MySQL.
 4. Importe as tabelas usando os scripts SQL disponíveis no diretório `/database` (ou usar os comandos SQL fornecidos no projeto).
 5. Configure o arquivo `model/Conexao.php` para utilizar seu usuário, senha e nome do banco, se necessário.
 6. Gere um hash para a senha do administrador e insira um registro na tabela `administrador`.
