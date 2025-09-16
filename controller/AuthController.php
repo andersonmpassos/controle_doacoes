@@ -6,7 +6,7 @@ class AuthController {
     public static function login() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $admin = Admin::findByEmail($_POST['email']);
-            if ($admin && password_verify($_POST['senha'],$admin['senha'])) {
+            if ($admin && password_verify($_POST['senha'], $admin['senha'])) {
                 $_SESSION['admin'] = $admin;
                 header('Location: index.php?route=dashboard');
                 exit;
@@ -17,8 +17,9 @@ class AuthController {
         include __DIR__."/../view/login.php";
     }
     public static function logout() {
+        session_start(); //garante que está aberta
         session_destroy();
-        header('Location: index.php');
+        header('Location: /controle_doacoes/public/index.php');
         exit;
     }
 }

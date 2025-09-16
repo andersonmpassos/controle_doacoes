@@ -1,18 +1,21 @@
 <?php include __DIR__ . "/partials/header.php"; ?>
-<h2>Novo Doador</h2>
-<form method="POST" action="index.php?route=novo_doador">
+
+<h2><?= isset($doador) ? 'Editar' : 'Novo' ?> Doador</h2>
+
+<form method="POST" action="">
     <label for="nome">Nome:</label><br>
-    <input type="text" name="nome" id="nome" required><br>
+    <input type="text" id="nome" name="nome" required value="<?= isset($doador) ? htmlspecialchars($doador['nome']) : '' ?>"><br>
 
     <label for="email">Email:</label><br>
-    <input type="email" name="email" id="email" required><br>
+    <input type="email" id="email" name="email" required value="<?= isset($doador) ? htmlspecialchars($doador['email']) : '' ?>"><br>
 
     <label for="telefone">Telefone:</label><br>
-    <input type="text" name="telefone" id="telefone"><br>
+    <input type="text" id="telefone" name="telefone" value="<?= isset($doador) ? htmlspecialchars($doador['telefone']) : '' ?>"><br>
 
     <label for="endereco">Endereço:</label><br>
-    <input type="text" name="endereco" id="endereco"><br>
+    <input type="text" id="endereco" name="endereco" value="<?= isset($doador) ? htmlspecialchars($doador['endereco']) : '' ?>"><br><br>
 
     <button type="submit">Salvar</button>
 </form>
+
 <?php include __DIR__ . "/partials/footer.php"; ?>

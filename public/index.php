@@ -12,7 +12,6 @@ switch($route) {
         break;
     case "doadores":
         require_once "../controller/DoadorController.php";
-        DoadorController::index();
         break;
     case "novo_doador":
         require_once "../controller/DoadorController.php";
