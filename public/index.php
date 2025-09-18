@@ -21,6 +21,11 @@ switch($route) {
         require_once __DIR__ . "/../controller/DoacaoController.php";
         // O controller já possui roteamento interno por action
         break;
+    
+    case "campanhas":
+        require_once __DIR__ . "/../controller/CampanhaController.php";
+        break;
+
 
     // Aqui você pode adicionar novas rotas (ex: campanhas, etc)
 
