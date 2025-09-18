@@ -1,6 +1,8 @@
 <?php
 require_once __DIR__ . "/../model/Doacao.php";
 require_once __DIR__ . "/../model/Doador.php";
+require_once __DIR__ . "/../model/Campanha.php";
+
 session_start();
 
 if (!isset($_SESSION['admin'])) {
@@ -16,6 +18,7 @@ class DoacaoController {
 
     public static function create() {
         $doadores = Doador::all();
+        $campanhas = Campanha::all();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             Doacao::create($_POST);
@@ -35,6 +38,7 @@ class DoacaoController {
 
         $doacao = Doacao::find($id);
         $doadores = Doador::all();
+        $campanhas = Campanha::all();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             Doacao::update($id, $_POST);
@@ -55,8 +59,9 @@ class DoacaoController {
     }
 }
 
-// Roteamento básico para método via action
+// Roteamento básico para action
 $action = $_GET['action'] ?? 'index';
+
 switch ($action) {
     case 'create':
         DoacaoController::create();
