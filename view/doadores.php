@@ -25,11 +25,11 @@
     <?php endforeach; ?>
 </table>
 
-<div>
-    <a href="/controle_doacoes/controller/AuthController.php?action=logout">Sair</a>
-    <?php
-        $paginaAnterior = $_SERVER['HTTP_REFERER'] ?? '/controle_doacoes/public/index.php';
-    ?>
-    <a href="<?= htmlspecialchars($paginaAnterior) ?>">Voltar</a>
-</div>
+<a href="/controle_doacoes/controller/AuthController.php?action=logout">Sair</a>
+<?php
+    $paginaAnterior = $_SERVER['HTTP_REFERER'] ?? '/controle_doacoes/public/index.php';
+?>
+<a href="<?= htmlspecialchars($paginaAnterior) ?>">Voltar</a>
+<a href="index.php?route=dashboard">Voltar ao Menu Principal</a>
+
 <?php include __DIR__ . "/partials/footer.php"; ?>

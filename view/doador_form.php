@@ -17,5 +17,10 @@
 
     <button type="submit">Salvar</button>
 </form>
+<?php
+    $paginaAnterior = $_SERVER['HTTP_REFERER'] ?? '/controle_doacoes/public/index.php';
+?>
+<a href="<?= htmlspecialchars($paginaAnterior) ?>">Voltar</a>
+<a href="index.php?route=dashboard">Voltar ao Menu Principal</a>
 
 <?php include __DIR__ . "/partials/footer.php"; ?>
