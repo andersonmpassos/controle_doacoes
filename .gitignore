@@ -1,0 +1,33 @@
+# Ignora arquivos temporários do sistema
+*.tmp
+*.temp
+*.bak
+*.swp
+.DS_Store
+Thumbs.db
+
+# Ignora diretórios comuns
+/vendor/
+/node_modules/
+/.env
+.env*
+.idea/
+/nbproject/
+/.vscode/
+/*.log
+
+# Ignora possíveis arquivos de banco local
+*.sqlite
+*.db
+*.sql~
+/database.sqlite
+
+# Logs e arquivos de cache
+*.log
+*.cache
+
+Ignorar arquivos de upload temporários
+/uploads/tmp/
+
+# Ignorar configurações locais
+/config.php.local
