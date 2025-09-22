@@ -1,49 +1,68 @@
 <?php
-require_once "Conexao.php";
+require_once __DIR__ . "/Database.php";
 
 class Doacao {
+
+    private static $table = 'doacao'; // <-- Corrigido para singular
+
     public static function all() {
-        $conn = Conexao::getConexao();
-        $sql = "SELECT d.id_doacao, d.item, d.data_doacao, d.quantidade, d.validade, 
-                       doador.nome AS nome_doador, campanha.titulo AS titulo_campanha
-                FROM doacao d 
-                LEFT JOIN doador ON d.id_doador = doador.id_doador
-                LEFT JOIN campanha ON d.id_campanha = campanha.id_campanha
-                ORDER BY d.id_doacao DESC";
-        $result = $conn->query($sql);
-        return $result->fetch_all(MYSQLI_ASSOC);
+        $pdo = Database::getConnection();
+        $stmt = $pdo->query("
+            SELECT d.*, do.nome AS nome_doador, c.titulo AS titulo_campanha
+            FROM " . self::$table . " d
+            JOIN doador do ON d.id_doador = do.id_doador
+            JOIN campanha c ON d.id_campanha = c.id_campanha
+            ORDER BY d.id_doacao ASC
+        ");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public static function find($id) {
-        $conn = Conexao::getConexao();
-        $sql = "SELECT * FROM doacao WHERE id_doacao = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        return $stmt->get_result()->fetch_assoc();
+        $pdo = Database::getConnection();
+        $stmt = $pdo->prepare("SELECT * FROM " . self::$table . " WHERE id_doacao = :id");
+        $stmt->execute(['id' => $id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public static function create($dados) {
-        $conn = Conexao::getConexao();
-        $sql = "INSERT INTO doacao (item, id_doador, id_campanha, data_doacao, quantidade, validade) VALUES (?, ?, ?, ?, ?, ?)";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("siisis", $dados['item'], $dados['id_doador'], $dados['id_campanha'], $dados['data_doacao'], $dados['quantidade'], $dados['validade']);
-        return $stmt->execute();
+    public static function create($data) {
+        $pdo = Database::getConnection();
+        $stmt = $pdo->prepare("
+            INSERT INTO " . self::$table . " 
+            (nomeItem, id_doador, id_campanha, data_doacao, quantidade, validade)
+            VALUES (:nomeItem, :id_doador, :id_campanha, :data_doacao, :quantidade, :validade)
+        ");
+        $stmt->execute([
+            'nomeItem'    => htmlspecialchars($data['nomeItem']),
+            'id_doador'   => (int)$data['id_doador'],
+            'id_campanha' => (int)$data['id_campanha'],
+            'data_doacao' => $data['data_doacao'],
+            'quantidade'  => (int)$data['quantidade'],
+            'validade'    => $data['validade'] ?: null
+        ]);
     }
 
-    public static function update($id, $dados) {
-        $conn = Conexao::getConexao();
-        $sql = "UPDATE doacao SET item = ?, id_doador = ?, id_campanha = ?, data_doacao = ?, quantidade = ?, validade = ? WHERE id_doacao = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("siisisi", $dados['item'], $dados['id_doador'], $dados['id_campanha'], $dados['data_doacao'], $dados['quantidade'], $dados['validade'], $id);
-        return $stmt->execute();
+    public static function update($id, $data) {
+        $pdo = Database::getConnection();
+        $stmt = $pdo->prepare("
+            UPDATE " . self::$table . " 
+            SET nomeItem=:nomeItem, id_doador=:id_doador, id_campanha=:id_campanha,
+                data_doacao=:data_doacao, quantidade=:quantidade, validade=:validade
+            WHERE id_doacao=:id
+        ");
+        $stmt->execute([
+            'nomeItem'    => htmlspecialchars($data['nomeItem']),
+            'id_doador'   => (int)$data['id_doador'],
+            'id_campanha' => (int)$data['id_campanha'],
+            'data_doacao' => $data['data_doacao'],
+            'quantidade'  => (int)$data['quantidade'],
+            'validade'    => $data['validade'] ?: null,
+            'id'          => (int)$id
+        ]);
     }
 
     public static function delete($id) {
-        $conn = Conexao::getConexao();
-        $sql = "DELETE FROM doacao WHERE id_doacao = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $id);
-        return $stmt->execute();
+        $pdo = Database::getConnection();
+        $stmt = $pdo->prepare("DELETE FROM " . self::$table . " WHERE id_doacao = :id");
+        $stmt->execute(['id' => (int)$id]);
     }
 }

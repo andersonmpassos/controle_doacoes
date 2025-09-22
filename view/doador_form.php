@@ -1,26 +1,34 @@
 <?php include __DIR__ . "/partials/header.php"; ?>
 
-<h2><?= isset($doador) ? 'Editar' : 'Novo' ?> Doador</h2>
+<div class="container mt-5">
+    <h2><?= isset($doador) ? 'Editar Doador' : 'Novo Doador' ?></h2>
 
-<form method="POST" action="">
-    <label for="nome">Nome:</label><br>
-    <input type="text" id="nome" name="nome" required value="<?= isset($doador) ? htmlspecialchars($doador['nome']) : '' ?>"><br>
+    <?php if(!empty($erro)): ?>
+        <div class="alert alert-danger"><?= htmlspecialchars($erro) ?></div>
+    <?php endif; ?>
 
-    <label for="email">Email:</label><br>
-    <input type="email" id="email" name="email" required value="<?= isset($doador) ? htmlspecialchars($doador['email']) : '' ?>"><br>
+    <form method="POST" action="">
+        <div class="mb-3">
+            <label for="nome" class="form-label">Nome *</label>
+            <input type="text" id="nome" name="nome" class="form-control" required maxlength="255"
+                value="<?= isset($doador) ? htmlspecialchars($doador['nome']) : '' ?>">
+        </div>
 
-    <label for="telefone">Telefone:</label><br>
-    <input type="text" id="telefone" name="telefone" value="<?= isset($doador) ? htmlspecialchars($doador['telefone']) : '' ?>"><br>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" id="email" name="email" class="form-control"
+                value="<?= isset($doador) ? htmlspecialchars($doador['email']) : '' ?>">
+        </div>
 
-    <label for="endereco">Endereço:</label><br>
-    <input type="text" id="endereco" name="endereco" value="<?= isset($doador) ? htmlspecialchars($doador['endereco']) : '' ?>"><br><br>
+        <div class="mb-3">
+            <label for="telefone" class="form-label">Telefone</label>
+            <input type="text" id="telefone" name="telefone" class="form-control"
+                value="<?= isset($doador) ? htmlspecialchars($doador['telefone']) : '' ?>">
+        </div>
 
-    <button type="submit">Salvar</button>
-</form>
-<?php
-    $paginaAnterior = $_SERVER['HTTP_REFERER'] ?? '/controle_doacoes/public/index.php';
-?>
-<a href="<?= htmlspecialchars($paginaAnterior) ?>">Voltar</a>
-<a href="index.php?route=dashboard">Voltar ao Menu Principal</a>
+        <button type="submit" class="btn btn-success">Salvar</button>
+        <a href="index.php?route=doadores" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
 
 <?php include __DIR__ . "/partials/footer.php"; ?>

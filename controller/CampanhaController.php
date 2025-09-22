@@ -29,13 +29,14 @@ class CampanhaController {
             exit;
         }
 
+        $campanhas = Campanha::find($id);
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             Campanha::update($id, $_POST);
             header("Location: index.php?route=campanhas");
             exit;
         }
 
-        $campanha = Campanha::find($id);
         include __DIR__ . "/../view/campanha_form.php";
     }
 
@@ -47,22 +48,4 @@ class CampanhaController {
         header("Location: index.php?route=campanhas");
         exit;
     }
-}
-
-$action = $_GET['action'] ?? 'index';
-
-switch ($action) {
-    case 'create':
-        CampanhaController::create();
-        break;
-    case 'edit':
-        CampanhaController::edit();
-        break;
-    case 'delete':
-        CampanhaController::delete();
-        break;
-    case 'index':
-    default:
-        CampanhaController::index();
-        break;
 }

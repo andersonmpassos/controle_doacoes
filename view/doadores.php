@@ -1,35 +1,58 @@
 <?php include __DIR__ . "/partials/header.php"; ?>
-<h2>Lista de Doadores</h2>
-<a href="index.php?route=doadores&action=create">Novo Doador</a>
-<table border="1" cellpadding="5" cellspacing="0">
-    <tr>
-        <th>ID</th>
-        <th>Nome</th>
-        <th>Email</th>
-        <th>Telefone</th>
-        <th>Endereço</th>
-        <th>Ações</th>
-    </tr>
-    <?php foreach ($doadores as $doador) : ?>
-    <tr>
-        <td><?= htmlspecialchars($doador['id_doador']) ?></td>
-        <td><?= htmlspecialchars($doador['nome']) ?></td>
-        <td><?= htmlspecialchars($doador['email']) ?></td>
-        <td><?= htmlspecialchars($doador['telefone']) ?></td>
-        <td><?= htmlspecialchars($doador['endereco']) ?></td>
-        <td>
-            <a href="index.php?route=doadores&action=edit&id=<?= $doador['id_doador'] ?>">Editar</a> | 
-            <a href="index.php?route=doadores&action=delete&id=<?= $doador['id_doador'] ?>" onclick="return confirm('Deseja realmente excluir?');">Excluir</a>
-        </td>
-    </tr>
-    <?php endforeach; ?>
-</table>
 
-<a href="/controle_doacoes/controller/AuthController.php?action=logout">Sair</a>
-<?php
-    $paginaAnterior = $_SERVER['HTTP_REFERER'] ?? '/controle_doacoes/public/index.php';
-?>
-<a href="<?= htmlspecialchars($paginaAnterior) ?>">Voltar</a>
-<a href="index.php?route=dashboard">Voltar ao Menu Principal</a>
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">Lista de Doadores</h2>
+        <a href="index.php?route=doadores&action=create" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Novo Doador
+        </a>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>Número</th>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th>Telefone</th>
+                            <th class="text-center">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php $contador = 1; ?>
+                        <?php if (!empty($doadores)): ?>
+                            <?php foreach ($doadores as $doador): ?>
+                                <tr>
+                                    <td><?= $contador++ ?></td>
+                                    <td><?= htmlspecialchars($doador['nome']) ?></td>
+                                    <td><?= htmlspecialchars($doador['email']) ?></td>
+                                    <td><?= htmlspecialchars($doador['telefone']) ?></td>
+                                    <td class="text-center">
+                                        <a href="index.php?route=doadores&action=edit&id=<?= $doador['id_doador'] ?>" 
+                                           class="btn btn-sm btn-warning">
+                                           <i class="bi bi-pencil-square"></i> Editar
+                                        </a>
+                                        <a href="index.php?route=doadores&action=delete&id=<?= $doador['id_doador'] ?>" 
+                                           class="btn btn-sm btn-danger"
+                                           onclick="return confirm('Deseja realmente excluir este doador?');">
+                                           <i class="bi bi-trash"></i> Excluir
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="5" class="text-center">Nenhum doador cadastrado.</td>
+                            </tr>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
 <?php include __DIR__ . "/partials/footer.php"; ?>

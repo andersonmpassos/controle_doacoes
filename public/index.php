@@ -14,20 +14,23 @@ switch($route) {
 
     case "doadores":
         require_once __DIR__ . "/../controller/DoadorController.php";
-        // O controller já possui roteamento interno por action
+        // Chama o roteamento interno do controller
+        $action = $_GET['action'] ?? 'index';
+        DoadorController::$action();
         break;
 
     case "doacoes":
         require_once __DIR__ . "/../controller/DoacaoController.php";
-        // O controller já possui roteamento interno por action
+        $action = $_GET['action'] ?? 'index';
+        DoacaoController::$action();
         break;
+
     
     case "campanhas":
         require_once __DIR__ . "/../controller/CampanhaController.php";
+        $action = $_GET['action'] ?? 'index';
+        CampanhaController::$action();
         break;
-
-
-    // Aqui você pode adicionar novas rotas (ex: campanhas, etc)
 
     default:
         require_once __DIR__ . "/../controller/AuthController.php";

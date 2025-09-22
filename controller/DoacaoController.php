@@ -2,7 +2,6 @@
 require_once __DIR__ . "/../model/Doacao.php";
 require_once __DIR__ . "/../model/Doador.php";
 require_once __DIR__ . "/../model/Campanha.php";
-
 session_start();
 
 if (!isset($_SESSION['admin'])) {
@@ -11,6 +10,7 @@ if (!isset($_SESSION['admin'])) {
 }
 
 class DoacaoController {
+
     public static function index() {
         $doacoes = Doacao::all();
         include __DIR__ . "/../view/doacoes.php";
@@ -57,23 +57,4 @@ class DoacaoController {
         header("Location: index.php?route=doacoes");
         exit;
     }
-}
-
-// Roteamento básico para action
-$action = $_GET['action'] ?? 'index';
-
-switch ($action) {
-    case 'create':
-        DoacaoController::create();
-        break;
-    case 'edit':
-        DoacaoController::edit();
-        break;
-    case 'delete':
-        DoacaoController::delete();
-        break;
-    case 'index':
-    default:
-        DoacaoController::index();
-        break;
 }

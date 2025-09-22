@@ -1,44 +1,49 @@
-<?php 
-require_once "Conexao.php";
+<?php
+require_once __DIR__ . "/Database.php";
 
 class Campanha {
+
     public static function all() {
-        $conn = Conexao::getConexao();
-        $sql = "SELECT * FROM campanha ORDER BY id_campanha DESC";
-        $result = $conn->query($sql);
-        return $result->fetch_all(MYSQLI_ASSOC);
+        $pdo = Database::getConnection();
+        return $pdo->query("SELECT * FROM campanha ORDER BY id_campanha ASC")->fetchAll();
     }
 
     public static function find($id) {
-        $conn = Conexao::getConexao();
-        $sql = "SELECT * FROM campanha WHERE id_campanha = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        return $stmt->get_result()->fetch_assoc();
+        $pdo = Database::getConnection();
+        $stmt = $pdo->prepare("SELECT * FROM campanha WHERE id_campanha=:id");
+        $stmt->execute(['id' => (int)$id]);
+        return $stmt->fetch();
     }
 
-    public static function create($dados) {
-        $conn = Conexao::getConexao();
-        $sql = "INSERT INTO campanha (titulo, descricao) VALUES (?, ?)";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ss", $dados['titulo'], $dados['descricao']);
-        return $stmt->execute();
+    public static function create($data) {
+        $pdo = Database::getConnection();
+        $stmt = $pdo->prepare("
+            INSERT INTO campanha (titulo, descricao)
+            VALUES (:titulo, :descricao)
+        ");
+        $stmt->execute([
+            'titulo'    => htmlspecialchars($data['titulo']),
+            'descricao' => htmlspecialchars($data['descricao'])
+        ]);
     }
 
-    public static function update($id, $dados) {
-        $conn = Conexao::getConexao();
-        $sql = "UPDATE campanha SET titulo = ?, descricao = ? WHERE id_campanha = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssi", $dados['titulo'], $dados['descricao'], $id);
-        return $stmt->execute();
+    public static function update($id, $data) {
+        $pdo = Database::getConnection();
+        $stmt = $pdo->prepare("
+            UPDATE campanha
+            SET titulo=:titulo, descricao=:descricao
+            WHERE id_campanha=:id
+        ");
+        $stmt->execute([
+            'titulo'    => htmlspecialchars($data['titulo']),
+            'descricao' => htmlspecialchars($data['descricao']),
+            'id'        => (int)$id
+        ]);
     }
 
     public static function delete($id) {
-        $conn = Conexao::getConexao();
-        $sql = "DELETE FROM campanha WHERE id_campanha = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $id);
-        return $stmt->execute();
+        $pdo = Database::getConnection();
+        $stmt = $pdo->prepare("DELETE FROM campanha WHERE id_campanha=:id");
+        $stmt->execute(['id' => (int)$id]);
     }
 }

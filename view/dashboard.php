@@ -2,18 +2,19 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+
 if (!isset($_SESSION['admin'])) {
     header('Location: /controle_doacoes/public/index.php');
     exit;
 }
+
+include __DIR__ . "/partials/header.php";
 ?>
-<?php include __DIR__ . "/partials/header.php"; ?>
 
 <div class="container my-5">
     <div class="text-center mb-4">
         <h2 class="fw-bold">Painel do Administrador</h2>
-        <p class="text-muted">Bem vindo ao Sistema de Gerenciamento de Doações, Campanhas e Doadores do
-            Asilo de Mendigos de Pelotas</p>
+        <p class="text-muted">Bem-vindo ao Sistema de Gerenciamento de Doações, Campanhas e Doadores do Asilo de Mendigos de Pelotas</p>
     </div>
 
     <div class="row g-4 justify-content-center">
