@@ -8,6 +8,7 @@ if (!isset($_SESSION['admin'])) {
 }
 
 class DoadorController {
+
     public static function index() {
         $doadores = Doador::all();
         include __DIR__ . "/../view/doadores.php";
@@ -16,6 +17,7 @@ class DoadorController {
     public static function create() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             Doador::create($_POST);
+            $_SESSION['success'] = "Doador cadastrado com sucesso!";
             header("Location: index.php?route=doadores");
             exit;
         }
@@ -33,6 +35,7 @@ class DoadorController {
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             Doador::update($id, $_POST);
+            $_SESSION['success'] = "Doador atualizado com sucesso!";
             header("Location: index.php?route=doadores");
             exit;
         }
@@ -43,7 +46,12 @@ class DoadorController {
     public static function delete() {
         $id = $_GET['id'] ?? null;
         if ($id) {
-            Doador::delete($id);
+            $result = Doador::delete($id); // Método já trata se houver doações
+            if ($result !== true) {
+                $_SESSION['error'] = $result;
+            } else {
+                $_SESSION['success'] = "Doador excluído com sucesso!";
+            }
         }
         header("Location: index.php?route=doadores");
         exit;

@@ -10,9 +10,10 @@ class Doador {
     }
 
     public static function find($id) {
+        $id = (int)$id;
         $pdo = Database::getConnection();
         $stmt = $pdo->prepare("SELECT * FROM doador WHERE id_doador=:id");
-        $stmt->execute(['id' => (int)$id]);
+        $stmt->execute(['id' => $id]);
         return $stmt->fetch();
     }
 
@@ -23,13 +24,14 @@ class Doador {
             VALUES (:nome, :email, :telefone)
         ");
         $stmt->execute([
-            'nome'    => htmlspecialchars($data['nome']),
-            'email'   => filter_var($data['email'], FILTER_SANITIZE_EMAIL),
-            'telefone'=> htmlspecialchars($data['telefone'])
+            'nome'     => htmlspecialchars($data['nome']),
+            'email'    => filter_var($data['email'], FILTER_SANITIZE_EMAIL),
+            'telefone' => htmlspecialchars($data['telefone'])
         ]);
     }
 
     public static function update($id, $data) {
+        $id = (int)$id;
         $pdo = Database::getConnection();
         $stmt = $pdo->prepare("
             UPDATE doador 
@@ -40,13 +42,33 @@ class Doador {
             'nome'     => htmlspecialchars($data['nome']),
             'email'    => filter_var($data['email'], FILTER_SANITIZE_EMAIL),
             'telefone' => htmlspecialchars($data['telefone']),
-            'id'       => (int)$id
+            'id'       => $id
         ]);
     }
 
     public static function delete($id) {
-        $pdo = Database::getConnection();
-        $stmt = $pdo->prepare("DELETE FROM doador WHERE id_doador=:id");
-        $stmt->execute(['id' => (int)$id]);
+    $id = (int)$id;
+    $pdo = Database::getConnection();
+
+        try {
+            // Verifica se o doador possui doações
+            $check = $pdo->prepare("SELECT COUNT(*) as total FROM doacao WHERE id_doador=:id");
+            $check->execute(['id' => $id]);
+            $total = $check->fetchColumn();
+
+            if ($total > 0) {
+                throw new Exception("Não é possível excluir este doador, ele possui $total doação(ões) cadastrada(s).");
+            }
+
+            // Se não houver doações, exclui o doador
+            $del = $pdo->prepare("DELETE FROM doador WHERE id_doador=:id");
+            $del->execute(['id' => $id]);
+
+            return true;
+
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
     }
+
 }
