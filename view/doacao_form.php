@@ -10,9 +10,9 @@
 
     <form method="POST" action="">
         <div class="mb-3">
-            <label for="nomeItem" class="form-label">Item *</label>
-            <input type="text" id="nomeItem" name="nomeItem" class="form-control" required maxlength="255"
-                value="<?= isset($doacao) ? htmlspecialchars($doacao['nomeItem']) : '' ?>">
+            <label for="item" class="form-label">Item *</label>
+            <input type="text" id="item" name="item" class="form-control" required maxlength="255"
+                value="<?= isset($doacao) ? htmlspecialchars($doacao['item']) : '' ?>">
         </div>
 
         <div class="mb-3">

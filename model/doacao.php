@@ -3,7 +3,7 @@ require_once __DIR__ . "/Database.php";
 
 class Doacao {
 
-    private static $table = 'doacao'; // <-- Corrigido para singular
+    private static $table = 'doacao'; // Tabela correta
 
     public static function all() {
         $pdo = Database::getConnection();
@@ -28,11 +28,11 @@ class Doacao {
         $pdo = Database::getConnection();
         $stmt = $pdo->prepare("
             INSERT INTO " . self::$table . " 
-            (nomeItem, id_doador, id_campanha, data_doacao, quantidade, validade)
-            VALUES (:nomeItem, :id_doador, :id_campanha, :data_doacao, :quantidade, :validade)
+            (item, id_doador, id_campanha, data_doacao, quantidade, validade)
+            VALUES (:item, :id_doador, :id_campanha, :data_doacao, :quantidade, :validade)
         ");
         $stmt->execute([
-            'nomeItem'    => htmlspecialchars($data['nomeItem']),
+            'item'        => htmlspecialchars($data['item']),
             'id_doador'   => (int)$data['id_doador'],
             'id_campanha' => (int)$data['id_campanha'],
             'data_doacao' => $data['data_doacao'],
@@ -45,12 +45,12 @@ class Doacao {
         $pdo = Database::getConnection();
         $stmt = $pdo->prepare("
             UPDATE " . self::$table . " 
-            SET nomeItem=:nomeItem, id_doador=:id_doador, id_campanha=:id_campanha,
+            SET item=:item, id_doador=:id_doador, id_campanha=:id_campanha,
                 data_doacao=:data_doacao, quantidade=:quantidade, validade=:validade
             WHERE id_doacao=:id
         ");
         $stmt->execute([
-            'nomeItem'    => htmlspecialchars($data['nomeItem']),
+            'item'        => htmlspecialchars($data['item']),
             'id_doador'   => (int)$data['id_doador'],
             'id_campanha' => (int)$data['id_campanha'],
             'data_doacao' => $data['data_doacao'],
