@@ -1,5 +1,6 @@
 <?php include __DIR__ . "/partials/header.php"; ?>
 
+<<<<<<< HEAD
 <div class="container my-5">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="fw-bold">Lista de Doações</h2>
@@ -66,7 +67,5 @@
         </a>
     </div>
 </div>
-
-
 
 <?php include __DIR__ . "/partials/footer.php"; ?>
