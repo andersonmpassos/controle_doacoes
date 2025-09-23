@@ -15,7 +15,7 @@
 
                 <div class="card shadow-lg border-0 rounded-4">
                     <div class="card-body p-4">
-                        <h2 class="text-center mb-4">Login do Administrador</h2>
+                        <h2 class="text-center mb-4">Painel de Doações</h2>
 
                         <!-- Aviso de sessão expirada -->
                         <?php if (isset($_GET['timeout'])): ?>
