@@ -1,26 +1,39 @@
 <?php
 require_once __DIR__ . "/../model/Database.php";
 
-session_start();
-
 class AuthController {
 
     public static function login() {
+        // Inicia a sessão apenas se ainda não estiver ativa
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        // Redireciona para dashboard se já estiver logado
+        if (isset($_SESSION['admin'])) {
+            header("Location: index.php?route=dashboard");
+            exit;
+        }
+
+        $erro = '';
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $usuario = $_POST['usuario'] ?? '';
+            $email = $_POST['email'] ?? '';
             $senha = $_POST['senha'] ?? '';
 
             $pdo = Database::getConnection();
-            $stmt = $pdo->prepare("SELECT * FROM admins WHERE usuario=:usuario LIMIT 1");
-            $stmt->execute(['usuario' => $usuario]);
+            $stmt = $pdo->prepare("SELECT * FROM administrador WHERE email=:email LIMIT 1");
+            $stmt->execute(['email' => $email]);
             $admin = $stmt->fetch();
 
             if ($admin && password_verify($senha, $admin['senha'])) {
-                $_SESSION['admin'] = $admin['id'];
+                $_SESSION['admin'] = $admin['id_admin'];
+                $_SESSION['admin_nome'] = $admin['nome'];
+                $_SESSION['last_activity'] = time(); // Marca o tempo da última atividade
                 header("Location: index.php?route=dashboard");
                 exit;
             } else {
-                $erro = "Usuário ou senha inválidos!";
+                $erro = "Email ou senha inválidos!";
             }
         }
 
@@ -28,7 +41,13 @@ class AuthController {
     }
 
     public static function logout() {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        session_unset();
         session_destroy();
+
         header("Location: index.php?route=login");
         exit;
     }

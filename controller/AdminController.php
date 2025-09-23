@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 if (!isset($_SESSION['admin'])) {
     header('Location: /controle_doacoes/public/index.php');

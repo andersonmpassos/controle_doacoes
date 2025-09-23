@@ -52,7 +52,7 @@ include __DIR__ . "/partials/header.php";
         </div>
 
         <div class="col-md-3">
-            <a href="/controle_doacoes/controller/AuthController.php?action=logout" class="text-decoration-none">
+            <a href="index.php?route=logout" class="text-decoration-none">
                 <div class="card shadow-sm border-0 text-center h-100">
                     <div class="card-body">
                         <i class="bi bi-box-arrow-right display-4 text-danger"></i>

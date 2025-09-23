@@ -2,7 +2,6 @@
 require_once __DIR__ . "/../model/Doacao.php";
 require_once __DIR__ . "/../model/Doador.php";
 require_once __DIR__ . "/../model/Campanha.php";
-session_start();
 
 if (!isset($_SESSION['admin'])) {
     header('Location: /controle_doacoes/public/index.php');

@@ -1,4 +1,7 @@
 <?php
+// Inclui a sessão e controle de timeout
+require_once __DIR__ . "/../session.php";
+
 $route = $_GET['route'] ?? 'login';
 
 switch($route) {
@@ -14,7 +17,6 @@ switch($route) {
 
     case "doadores":
         require_once __DIR__ . "/../controller/DoadorController.php";
-        // Chama o roteamento interno do controller
         $action = $_GET['action'] ?? 'index';
         DoadorController::$action();
         break;
@@ -25,12 +27,16 @@ switch($route) {
         DoacaoController::$action();
         break;
 
-    
     case "campanhas":
         require_once __DIR__ . "/../controller/CampanhaController.php";
         $action = $_GET['action'] ?? 'index';
         CampanhaController::$action();
         break;
+
+    case "logout":
+        require_once __DIR__ . "/../controller/AuthController.php";
+        AuthController::logout();
+    break;
 
     default:
         require_once __DIR__ . "/../controller/AuthController.php";

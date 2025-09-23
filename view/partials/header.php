@@ -34,11 +34,6 @@ if (!isset($_SESSION['admin'])) {
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="index.php?route=dashboard">
-                                <i class="bi bi-speedometer2 me-1"></i>Início
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="index.php?route=doadores">
                                 <i class="bi bi-people-fill me-1"></i>Doadores
                             </a>
@@ -54,7 +49,7 @@ if (!isset($_SESSION['admin'])) {
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/controle_doacoes/controller/AuthController.php?action=logout">
+                            <a class="nav-link" href="index.php?route=logout" class="text-decoration-none">
                                 <i class="bi bi-box-arrow-right me-1"></i>Sair
                             </a>
                         </li>
