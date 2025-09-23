@@ -13,7 +13,7 @@ include __DIR__ . "/partials/header.php";
 
 <div class="container my-5">
     <div class="text-center mb-4">
-        <h2 class="fw-bold">Painel do Administrador</h2>
+        <h2 class="fw-bold">Painel de Doações</h2>
         <p class="text-muted">Bem-vindo ao Sistema de Gerenciamento de Doações, Campanhas e Doadores do Asilo de Mendigos de Pelotas</p>
     </div>
 
