@@ -1,37 +1,36 @@
 <?php
+// Inicia a sessão apenas se ainda não estiver ativa
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Tempo máximo de inatividade (15 minutos)
-$tempoLimite = 900;
+// Tempo máximo de inatividade em segundos (ex: 15 minutos)
+$tempoLimite = 100;
 
-// Checa login apenas se não estiver na rota de login
-$currentScript = basename($_SERVER['PHP_SELF']);
-if ($currentScript !== 'index.php') {
-    $route = $_GET['route'] ?? 'login';
-} else {
-    $route = $_GET['route'] ?? 'login';
-}
+// Pega a rota atual
+$route = $_GET['route'] ?? 'login';
 
-// Verifica se o usuário está logado
-if (!isset($_SESSION['admin']) && $route !== 'login') {
-    session_unset();
-    session_destroy();
-    header('Location: /controle_doacoes/public/index.php?route=login&timeout=1');
-    exit;
-}
-
-// Verifica inatividade
-if (isset($_SESSION['ultimo_acesso'])) {
-    $tempoInativo = time() - $_SESSION['ultimo_acesso'];
-    if ($tempoInativo > $tempoLimite) {
+// Só checa login e timeout se não estiver na tela de login
+if ($route !== 'login') {
+    // Se usuário não estiver logado
+    if (!isset($_SESSION['admin'])) {
         session_unset();
         session_destroy();
-        header('Location: /controle_doacoes/public/index.php?route=login&timeout=1');
+        header('Location: index.php?route=login&timeout=1');
         exit;
     }
-}
 
-// Atualiza o timestamp da última atividade
-$_SESSION['ultimo_acesso'] = time();
+    // Se houver registro do último acesso, verifica inatividade
+    if (isset($_SESSION['ultimo_acesso'])) {
+        $tempoInativo = time() - $_SESSION['ultimo_acesso'];
+        if ($tempoInativo > $tempoLimite) {
+            session_unset();
+            session_destroy();
+            header('Location: index.php?route=login&timeout=1');
+            exit;
+        }
+    }
+
+    // Atualiza timestamp do último acesso
+    $_SESSION['ultimo_acesso'] = time();
+}

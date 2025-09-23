@@ -17,9 +17,17 @@
                     <div class="card-body p-4">
                         <h2 class="text-center mb-4">Login do Administrador</h2>
 
+                        <!-- Aviso de sessão expirada -->
+                        <?php if (isset($_GET['timeout'])): ?>
+                            <div class="alert alert-warning text-center py-2">
+                                Sua sessão expirou por inatividade. Faça login novamente.
+                            </div>
+                        <?php endif; ?>
+
+                        <!-- Erro de login -->
                         <?php if (isset($error)) : ?>
                             <div class="alert alert-danger text-center py-2">
-                                <?= $error ?>
+                                <?= htmlspecialchars($error) ?>
                             </div>
                         <?php endif; ?>
 
