@@ -13,7 +13,7 @@ if (!isset($_SESSION['admin'])) {
 <div class="container my-5">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="fw-bold">Campanhas</h2>
-        <a href="index.php?route=doadores&action=create" class="btn btn-success">
+        <a href="index.php?route=campanhas&action=create" class="btn btn-success">
             <i class="bi bi-plus-circle"></i> Nova Campanha
         </a>
     </div>

@@ -28,7 +28,8 @@ class CampanhaController {
             exit;
         }
 
-        $campanhas = Campanha::find($id);
+        // Corrigido: agora é singular
+        $campanha = Campanha::find($id);
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             Campanha::update($id, $_POST);

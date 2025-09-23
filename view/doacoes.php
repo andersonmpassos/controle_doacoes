@@ -15,7 +15,7 @@
                     <thead class="table-primary">
                         <tr>
                             <th>Item</th>
-                            <th>Data</th>
+                            <th>Data da Doação</th>
                             <th>Doador</th>
                             <th>Campanha</th>
                             <th>Quantidade</th>

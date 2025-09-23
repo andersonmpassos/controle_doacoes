@@ -5,7 +5,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 // Tempo máximo de inatividade em segundos (ex: 15 minutos)
-$tempoLimite = 100;
+$tempoLimite = 900;
 
 // Pega a rota atual
 $route = $_GET['route'] ?? 'login';
