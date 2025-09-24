@@ -1,42 +1,73 @@
 <?php
 require_once __DIR__ . "/../model/Database.php";
+require_once __DIR__ . "/../model/Admin.php";
 
 class AuthController {
 
     public static function login() {
-        // Inicia a sessão apenas se ainda não estiver ativa
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
 
-        // Redireciona para dashboard se já estiver logado
-        if (isset($_SESSION['admin'])) {
-            header("Location: index.php?route=dashboard");
-            exit;
+        // Se já está logado, redireciona direto conforme o papel
+        if (isset($_SESSION['nivel'])) {
+            switch ($_SESSION['nivel']) {
+                case 'administrador':
+                case 'funcionario':
+                    header("Location: index.php?route=dashboard");
+                    exit;
+                case 'doador':
+                    header("Location: index.php?route=doacoes");
+                    exit;
+                default:
+                    // Em caso de nível desconhecido, destrói sessão e volta pro login
+                    session_unset();
+                    session_destroy();
+                    header("Location: index.php?route=login");
+                    exit;
+            }
         }
 
         $erro = '';
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $email = $_POST['email'] ?? '';
+            $email = filter_var($_POST['email'] ?? '', FILTER_VALIDATE_EMAIL);
             $senha = $_POST['senha'] ?? '';
 
-            $pdo = Database::getConnection();
-            $stmt = $pdo->prepare("SELECT * FROM administrador WHERE email=:email LIMIT 1");
-            $stmt->execute(['email' => $email]);
-            $admin = $stmt->fetch();
-
-            if ($admin && password_verify($senha, $admin['senha'])) {
-                $_SESSION['admin'] = $admin['id_admin'];
-                $_SESSION['admin_nome'] = $admin['nome'];
-                $_SESSION['last_activity'] = time(); // Marca o tempo da última atividade
-                header("Location: index.php?route=dashboard");
-                exit;
+            if (!$email) {
+                $erro = "E-mail inválido.";
             } else {
-                $erro = "Email ou senha inválidos!";
+                $admin = Admin::findByEmail($email);
+
+                if ($admin && password_verify($senha, $admin['senha'])) {
+                    // Grava os dados essenciais na sessão
+                    $_SESSION['admin'] = $admin['id_admin'];
+                    $_SESSION['admin_nome'] = $admin['nome'];
+                    $_SESSION['nivel'] = $admin['nivel']; // ESSENCIAL
+                    $_SESSION['ultimo_acesso'] = time();
+
+                    // Redireciona conforme o nível do usuário
+                    switch ($_SESSION['nivel']) {
+                        case 'administrador':
+                        case 'funcionario':
+                            header("Location: index.php?route=dashboard");
+                            exit;
+                        case 'doador':
+                            header("Location: index.php?route=doacoes");
+                            exit;
+                        default:
+                            session_unset();
+                            session_destroy();
+                            header("Location: index.php?route=login");
+                            exit;
+                    }
+                } else {
+                    $erro = "Email ou senha inválidos!";
+                }
             }
         }
 
+        // Exibe o formulário de login, passando o erro se houver
         include __DIR__ . "/../view/login.php";
     }
 

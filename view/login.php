@@ -25,9 +25,9 @@
                         <?php endif; ?>
 
                         <!-- Erro de login -->
-                        <?php if (isset($error)) : ?>
+                        <?php if (isset($erro)) : ?>
                             <div class="alert alert-danger text-center py-2">
-                                <?= htmlspecialchars($error) ?>
+                                <?= htmlspecialchars($erro) ?>
                             </div>
                         <?php endif; ?>
 

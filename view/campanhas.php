@@ -1,21 +1,18 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-if (!isset($_SESSION['admin'])) {
-    header('Location: /controle_doacoes/public/index.php');
-    exit;
-}
-?>
+include __DIR__ . "/partials/header.php";
 
-<?php include __DIR__ . "/partials/header.php"; ?>
+require_once __DIR__ . '/../helpers/Permissao.php';
+$tipo = Permissao::currentRole();
+?>
 
 <div class="container my-5">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="fw-bold">Campanhas</h2>
-        <a href="index.php?route=campanhas&action=create" class="btn btn-success">
-            <i class="bi bi-plus-circle"></i> Nova Campanha
-        </a>
+        <?php if($tipo === 'administrador'): ?>
+            <a href="index.php?route=campanhas&action=create" class="btn btn-success">
+                <i class="bi bi-plus-circle"></i> Nova Campanha
+            </a>
+        <?php endif; ?>
     </div>
 
     <div class="card shadow-sm border-0 mb-4">
@@ -26,7 +23,9 @@ if (!isset($_SESSION['admin'])) {
                         <tr>
                             <th>Título</th>
                             <th style="width: 60%;">Descrição</th>
-                            <th class="text-center" style="width: 20%;">Ações</th>
+                            <?php if($tipo === 'administrador'): ?>
+                                <th class="text-center" style="width: 20%;">Ações</th>
+                            <?php endif; ?>
                         </tr>
                     </thead>
                     <tbody>
@@ -35,22 +34,24 @@ if (!isset($_SESSION['admin'])) {
                             <tr>
                                 <td><?= htmlspecialchars($campanha['titulo']) ?></td>
                                 <td style="width: 60%;"><?= htmlspecialchars($campanha['descricao']) ?></td>
-                                <td class="text-center" style="width: 20%;">
-                                    <a href="index.php?route=campanhas&action=edit&id=<?= htmlspecialchars($campanha['id_campanha']) ?>" 
-                                       class="btn btn-sm btn-warning me-1">
-                                       <i class="bi bi-pencil-square"></i> Editar
-                                    </a>
-                                    <a href="index.php?route=campanhas&action=delete&id=<?= htmlspecialchars($campanha['id_campanha']) ?>" 
-                                       class="btn btn-sm btn-danger"
-                                       onclick="return confirm('Deseja realmente excluir esta campanha?');">
-                                       <i class="bi bi-trash"></i> Excluir
-                                    </a>
-                                </td>
+                                <?php if($tipo === 'administrador'): ?>
+                                    <td class="text-center" style="width: 20%;">
+                                        <a href="index.php?route=campanhas&action=edit&id=<?= htmlspecialchars($campanha['id_campanha']) ?>" 
+                                           class="btn btn-sm btn-warning me-1">
+                                           <i class="bi bi-pencil-square"></i> Editar
+                                        </a>
+                                        <a href="index.php?route=campanhas&action=delete&id=<?= htmlspecialchars($campanha['id_campanha']) ?>" 
+                                           class="btn btn-sm btn-danger" 
+                                           onclick="return confirm('Deseja realmente excluir esta campanha?');">
+                                           <i class="bi bi-trash"></i> Excluir
+                                        </a>
+                                    </td>
+                                <?php endif; ?>
                             </tr>
                             <?php endforeach; ?>
                         <?php else: ?>
                             <tr>
-                                <td colspan="3" class="text-center">Nenhuma campanha cadastrada.</td>
+                                <td colspan="<?= $tipo === 'administrador' ? '3' : '2' ?>" class="text-center">Nenhuma campanha cadastrada.</td>
                             </tr>
                         <?php endif; ?>
                     </tbody>
