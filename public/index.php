@@ -23,7 +23,7 @@ if (!checkAccess($route)) {
         // Redireciona para uma rota que o papel tem permissão para acessar
         switch ($role) {
             case 'doador':
-                header("Location: index.php?route=doacoes");
+                header("Location: index.php?route=dashboard");
                 break;
             case 'funcionario':
             case 'administrador':

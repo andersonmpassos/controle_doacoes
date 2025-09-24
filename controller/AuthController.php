@@ -14,10 +14,11 @@ class AuthController {
             switch ($_SESSION['nivel']) {
                 case 'administrador':
                 case 'funcionario':
+                case 'doador':
                     header("Location: index.php?route=dashboard");
                     exit;
                 case 'doador':
-                    header("Location: index.php?route=doacoes");
+                    header("Location: index.php?route=dashboard");
                     exit;
                 default:
                     // Em caso de nível desconhecido, destrói sessão e volta pro login
@@ -53,7 +54,7 @@ class AuthController {
                             header("Location: index.php?route=dashboard");
                             exit;
                         case 'doador':
-                            header("Location: index.php?route=doacoes");
+                            header("Location: index.php?route=dashboard");
                             exit;
                         default:
                             session_unset();
