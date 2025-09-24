@@ -32,7 +32,7 @@ class Permissao
             'doacao:view'     => ['administrador', 'funcionario', 'doador', 'visitante'],
 
             // Dashboard: exibir apenas para admin e funcionario
-            'dashboard:view'  => ['administrador', 'funcionario'],
+            'dashboard:view'  => ['administrador', 'funcionario', 'doador', 'visitante'],
 
             //usuario: exibir apenas para admin
             'usuario:view'   => ['administrador'],
