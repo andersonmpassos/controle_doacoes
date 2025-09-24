@@ -25,11 +25,12 @@
                         <?php endif; ?>
 
                         <!-- Erro de login -->
-                        <?php if (isset($erro)) : ?>
+                        <?php if (!empty($erro)) : ?>
                             <div class="alert alert-danger text-center py-2">
                                 <?= htmlspecialchars($erro) ?>
                             </div>
                         <?php endif; ?>
+
 
                         <form method="POST">
                             <div class="mb-3">
