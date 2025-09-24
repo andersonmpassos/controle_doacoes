@@ -33,6 +33,12 @@ class Permissao
 
             // Dashboard: exibir apenas para admin e funcionario
             'dashboard:view'  => ['administrador', 'funcionario'],
+
+            //usuario: exibir apenas para admin
+            'usuario:view'   => ['administrador'],
+            'usuario:create' => ['administrador'],
+            'usuario:edit'   => ['administrador'],
+            'usuario:delete' => ['administrador'],
         ];
     }
 

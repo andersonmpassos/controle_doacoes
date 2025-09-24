@@ -51,8 +51,7 @@ function checkAccess(string $route): bool {
         'doadores'  => 'doador:view',
         'doacoes'   => 'doacao:view',
         'campanhas' => 'campanha:view',
-        // Adicione outras rotas e permissões conforme seu sistema
-        // 'usuarios' => 'usuario:view', por exemplo
+        'usuarios'  => 'usuario:view',
     ];
 
     if (!isset($routePermissionMap[$route])) {

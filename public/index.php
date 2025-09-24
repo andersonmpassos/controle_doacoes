@@ -70,6 +70,12 @@ switch ($route) {
         $action = $_GET['action'] ?? 'index';
         CampanhaController::$action();
         break;
+    
+    case "usuarios":
+        require_once __DIR__ . "/../controller/UsuarioController.php";
+        $action = $_GET['action'] ?? 'index';
+        UsuarioController::$action();
+        break;
 
     case "logout":
         require_once __DIR__ . "/../controller/AuthController.php";
