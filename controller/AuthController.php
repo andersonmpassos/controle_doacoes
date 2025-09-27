@@ -44,7 +44,7 @@ class AuthController {
                     // Grava os dados essenciais na sessão
                     $_SESSION['admin'] = $admin['id_admin'];
                     $_SESSION['admin_nome'] = $admin['nome'];
-                    $_SESSION['nivel'] = $admin['nivel']; // ESSENCIAL
+                    $_SESSION['nivel'] = $admin['nivel'];
                     $_SESSION['ultimo_acesso'] = time();
 
                     // Redireciona conforme o nível do usuário

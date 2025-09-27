@@ -1,7 +1,7 @@
     </main>
     <footer class="main-footer">
         <div class="container">
-            &copy; <?php echo date('Y'); ?> Controle de Doações. Todos os direitos reservados.
+            &copy; <?php echo date('Y'); ?> Sistema desenvolvido por Anderson passos. Todos os direitos reservados.
         </div>
     </footer>
 

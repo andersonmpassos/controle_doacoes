@@ -6,10 +6,10 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// --- Timeout de inatividade (em segundos) ---
+// --- Timeout de inatividade ---
 $tempoLimite = 900; // 15 minutos
 
-require_once __DIR__ . '/helpers/Permissao.php'; // Importa a classe Permissao
+require_once __DIR__ . '/helpers/Permissao.php';
 
 // Função para obter papel atual do usuário, preferencialmente pelo helper Permissao
 function getCurrentRole(): ?string {
@@ -36,7 +36,7 @@ if (getCurrentRole() !== null) {
 // --- Função: checkAccess($route) ---
 // Retorna true se o papel atual (ou visitante) tem permissão para acessar a rota.
 function checkAccess(string $route): bool {
-    $role = getCurrentRole(); // pode ser 'administrador','funcionario','doador' ou null (visitante)
+    $role = getCurrentRole();
 
     // Rotas públicas (todo mundo pode acessar)
     $publicRoutes = ['login', 'logout'];

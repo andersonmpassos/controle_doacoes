@@ -3,7 +3,7 @@ require_once __DIR__ . "/Database.php";
 
 class Doacao {
 
-    private static $table = 'doacao'; // Tabela correta
+    private static $table = 'doacao';
 
     public static function all() {
         $pdo = Database::getConnection();

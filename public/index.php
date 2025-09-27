@@ -5,10 +5,10 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 
-// Captura a rota de forma segura, rota padrão 'login'
+// Captura a rota padrão 'login'
 $route = $_GET['route'] ?? 'login';
 
-// Função para verificar acesso usando sessão e Permissão
+// Verificar acesso usando sessão e Permissão
 if (!checkAccess($route)) {
     $role = $_SESSION['nivel'] ?? null;
 

@@ -15,7 +15,17 @@ if ($role === 'visitante') {
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <!-- Metas, CSS e ícones aqui -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--SO-->
+    <meta name="description" content="Asilo de Mendigos de Pelotas">
+    <meta name="keywords" content="Asilo, Mendigos, Geriatria, Doações, Projeto Social, Idosos">
+    <!--Titulo-->
+    <title>Asilo de Mendigos de Pelotas</title>
+    <!--Chamando o bootstrap para Responsividade-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!--Chamano o arquivo CSS-->
+    <link rel="stylesheet" href="../../public/css/style.css">
 </head>
 <body>
 <header>

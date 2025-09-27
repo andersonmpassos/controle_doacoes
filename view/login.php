@@ -3,9 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login ADM</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!--SO-->
+    <meta name="description" content="Asilo de Mendigos de Pelotas">
+    <meta name="keywords" content="Asilo, Mendigos, Geriatria, Doações, Projeto Social, Idosos">
+    <!--Titulo-->
+    <title>Asilo de Mendigos de Pelotas</title>
+    <!--Chamando o bootstrap para Responsividade-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!--Chamano o arquivo CSS-->
+    <link rel="stylesheet" href="../public/css/style.css">
 </head>
 <body class="bg-light d-flex align-items-center justify-content-center vh-100">
 
