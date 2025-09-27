@@ -23,7 +23,7 @@ class Permissao
             'doador:create'   => ['administrador', 'funcionario'],
             'doador:edit'     => ['administrador'],
             'doador:delete'   => ['administrador'],
-            'doador:view'     => ['administrador', 'funcionario', 'doador'],
+            'doador:view'     => ['administrador', 'funcionario'],
 
             // Doações: cadastrar por admin e funcionario, editar/excluir só admin, visualizar para todos
             'doacao:create'   => ['administrador', 'funcionario'],
